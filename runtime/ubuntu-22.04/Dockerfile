@@ -62,13 +62,6 @@ RUN apt-get autoclean
 
 RUN pip install meson ninja mako jinja2 pyyaml zmq jsonschema jsonschema-default packaging
 
-
-# Install Flatc
-RUN mkdir -p /src/build
-RUN git clone https://github.com/google/flatbuffers.git /src/flatbuffers --branch v2.0.0 --depth 1
-RUN cd /src/build && cmake -DCMAKE_BUILD_TYPE=Release ../flatbuffers/ && make -j`nproc` && make install && cd / && rm -rf /src/
-
-
 RUN git clone https://github.com/gnuradio/gnuradio /src/build/ --depth 1 --branch dev-4.0 
 RUN cd /src/build && meson setup build && cd build && ninja && ninja install && rm -rf /src
 
